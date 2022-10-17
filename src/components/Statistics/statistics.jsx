@@ -1,8 +1,7 @@
 import { List, StatistickItem } from './statistics.styled';
 import PropTypes from 'prop-types';
 
-export const Statistics = state => {
-  const { good, neutral, bad } = state.value;
+export const Statistics = ({ good, neutral, bad }) => {
   return (
     <List>
       <StatistickItem>

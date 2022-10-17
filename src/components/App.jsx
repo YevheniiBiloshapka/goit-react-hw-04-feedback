@@ -1,31 +1,38 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
 import { Statistics } from './Statistics/statistics';
 import { Box, Section, Message } from './App.styled';
 const App = () => {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  };
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
 
-  incrementState = e => {
-    this.setState(prevState => ({ [e]: prevState[e] + 1 }));
-  };
+  function incrementState(type) {
+    switch (type) {
+      case 'good':
+        setGood(good + 1);
+        break;
+      case 'neutral':
+        setNeutral(neutral + 1);
+        break;
+      case 'bad':
+        setBad(bad + 1);
+        break;
 
-  const { good, neutral, bad } = this.state;
+      default:
+        break;
+    }
+  }
+
   return (
     <Box>
-      <FeedbackOptions
-        value={this.state}
-        incrementState={this.incrementState}
-      />
+      <FeedbackOptions incrementState={incrementState} />
       <Section>
         <h2>Statistics</h2>
         {good === 0 && (neutral === 0) & (bad === 0) ? (
           <Message>😔 You have not left the feedback</Message>
         ) : (
-          <Statistics value={this.state} />
+          <Statistics good={good} neutral={neutral} bad={bad} />
         )}
       </Section>
     </Box>
